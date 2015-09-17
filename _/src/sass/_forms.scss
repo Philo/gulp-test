@@ -1,0 +1,19 @@
+.form li, 
+.article .form li {
+	list-style-type: none;
+	margin-left: 0;
+	margin-bottom: 1.5em;
+	}
+
+.form input, 
+.form textarea {
+	border: 1px solid $grey;
+	border-radius: 4px;
+	display: block;
+	max-width: 500px;
+	padding: 0.5em;
+	width: 100%;
+	&:hover, &:focus {
+		border-color: darken($grey,20%);
+		}
+	}

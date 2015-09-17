@@ -1,0 +1,8 @@
+.contact li {
+    margin-bottom: 0.5em;
+    }
+
+.contact [class^="icon-"]:before, 
+.contact [class*=" icon-"]:before {
+    width: 1.5em;
+    }
