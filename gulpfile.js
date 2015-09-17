@@ -5,14 +5,10 @@ var concat = require("gulp-concat");
 var argv = require("yargs").argv;
 var gulpif = require("gulp-if");
 
-var bower = require("gulp-bower");
-
 var sass = require("gulp-sass");
-// var scsslint = require("gulp-scss-lint");
+
 var minifyCss = require("gulp-minify-css");
 var autoprefixer = require("gulp-autoprefixer");
-
-var replace = require("gulp-replace");
 
 var uglify = require("gulp-uglify");
 var jshint = require("gulp-jshint");
@@ -21,12 +17,8 @@ var imagemin = require("gulp-imagemin");
 var changed = require("gulp-changed");
 
 var rename = require('gulp-rename');
-var parallelize = require('concurrent-transform');
 
 var del = require('del');
-
-var fs = require('fs');
-
 var sequence = require('run-sequence');
 
 gulp.task('clean', function() {
