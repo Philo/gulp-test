@@ -1,0 +1,51 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+
+    var pageClass = Model.UrlName;
+}
+
+<div class="wrapper @pageClass landing clearfix" id="content">
+	<div class="breadcrumbs col small-12">
+		@Html.Partial("Base/Navigation/Breadcrumb")
+	</div>
+    <div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+		<h1>@Model.Name</h1>
+	</div>
+	<div class="push--bottom clearfix">
+		<div class="landing__intro col small-12 medium-8 large-7 xlarge-7 push--bottom">
+			@Model.GetPropertyValue(Up.Mixins.StandardContent.Introduction)
+		</div>
+		@{
+            var callToAction = Model.ConvertUrlSingle(Up.Mixins.StandardContent.CallToAction);
+		    var ctaAdditionalText = Model.GetPropertyValue(Up.Mixins.StandardContent.CtaAdditionalText);
+
+            if (callToAction.HasValue())
+            {
+		    	<div class="landing__cta col small-12 medium-4 large-5 xlarge-4 switch--xlarge">
+			        @if (ctaAdditionalText.HasValue())
+                    {
+                        <p>@ctaAdditionalText</p>
+                    }
+		        	<a class="button" href="@callToAction.Url">@callToAction.Title</a>
+		        </div>
+		    }
+		} 
+	</div>
+
+	<ul class="modules">
+		@Html.Partial("SummaryLandingPage/_Children",Model.Children)
+	</ul>
+
+	<div class="landing__extra col small-12 push--top clearfix">
+		<h2 class="push--top push--bottom">All services</h2>
+		<ul class="row push--bottom clearfix">
+			@Html.Partial("SummaryLandingPage/_Siblings",Model.Siblings())
+		</ul>
+	</div>
+
+</div>
+
+@Html.Partial("_Features")

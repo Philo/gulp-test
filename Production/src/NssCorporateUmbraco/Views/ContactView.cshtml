@@ -1,0 +1,37 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+    var callToAction = Model.ConvertUrlSingle(Up.Mixins.StandardContent.CallToAction);
+}
+
+<div class="contact wrapper clearfix" id="content">
+    <div class="clearfix">
+        <div class="breadcrumbs col small-12 medium-12 large-12 xlarge-12">
+            @Html.Partial("Base/Navigation/Breadcrumb")
+        </div>
+        <div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+            <h1>@Model.Name</h1>
+        </div>
+
+        @{
+            var introduction = Model.GetPropertyValue(Up.Mixins.StandardContent.Introduction);
+
+            if (introduction.HasValue())
+            {
+                <div class="push--bottom clearfix">
+                    <div class="landing__intro col small-12 medium-8 large-7 xlarge-7">
+                        @introduction
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <!-- Umbraco: Get Information Blocks -->
+    @Html.Partial("Partials/_InformationBlocks")
+
+</div>
+
+@Html.Partial("_Features")

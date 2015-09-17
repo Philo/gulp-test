@@ -1,0 +1,65 @@
+.intro {
+	font-size: 1.3em;
+	}
+
+.article__section {
+	background: $grey;
+    padding: 0.5em;
+	}
+
+.article h2 {
+	color: #333;
+	margin-bottom: 0.25em;
+	}
+
+.article h2:not(:first-child) {
+	margin-top: 2em;
+	}
+
+.article ul li {
+	list-style-type: disc;
+	margin-bottom: 0.5em;
+	margin-left: 1.2em;
+	}
+
+.article ol li {
+	list-style-type: decimal;
+	}
+
+.article .button {
+	margin-top: 1em;
+	}
+
+.article .download {
+	border: 1px solid $grey;
+	padding: 1em;
+	}
+
+.article__contact {
+	@media (max-width: $breakpoint-large) {
+	    margin-top: 1em;
+	    }
+	}
+
+.article__contact p {
+	margin-bottom: 0;
+	}
+
+.module__body .article__sbu {
+	display: block;
+	line-height: 1.2;
+	margin-bottom: 1.5em;
+	margin-top: 0.5em;
+	}
+
+.article__sbu.sbu--snbts {
+	background: url(../images/snbts-logo.svg) left top / 60px 60px no-repeat;
+	max-width: 300px;
+	min-height: 55px;
+	padding-left: 80px;
+	padding-top: 0.7em;
+	}
+
+.more-services {
+	border-top: 1px solid $grey;
+	}

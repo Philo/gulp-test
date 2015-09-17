@@ -1,0 +1,47 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@inherits UmbracoViewPage
+
+@{
+    Layout = null;
+}
+
+<section class="how__section how__structure col small-12 medium-12 large-12 xlarge-12 clearfix">
+    <div class="row">
+        <div class="clearfix">
+            <div class="col small-12 medium-3 large-4 xlarge-3">
+                <h2 class="light-type">Our structure</h2>
+            </div>
+            <div class="how__section__body col small-12 medium-9 large-8 xlarge-9">
+                <div class="row">
+                    <div class="how__structure__number col small-5 medium-5 large-4 xlarge-3 push--top push--bottom">
+                        <span class="how__structure__digit">6</span>
+                        <span class="how__structure__text">strategic business units</span>
+                    </div>
+                    <div class="how__structure__plus col small-2 medium-2 large-2 xlarge-2 push--top push--bottom">
+                        +
+                    </div>
+                    <div class="how__structure__number col small-5 medium-5 large-5 xlarge-5 push--top push--bottom">
+                        <span class="how__structure__digit">2</span>
+                        <span class="how__structure__text">supporting business units</span>
+                    </div>
+                </div>
+            </div>
+            <ul class="modules push--top clearfix">
+                @{
+                    var sbuFolder = Umbraco.TypedContent(1540);
+
+                    foreach (var sbu in sbuFolder.Children.Where(x => x.Id != 1549))
+                    {
+                        <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+                            <a href="@sbu.Url">
+                                <h3 class="module__header">@sbu.Name</h3>
+                                <p class="module__body">@sbu.GetPropertyValue(Up.Mixins.StandardContent.PageSummary)</p>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+

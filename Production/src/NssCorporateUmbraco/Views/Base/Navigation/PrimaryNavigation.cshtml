@@ -1,0 +1,22 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+
+@{
+    var root = Model.RootNode();
+    var activeClass = Model.Id == Model.RootNode().Id ? "active" : "";
+}
+
+<li>
+    <a href="@root.Url" class="@activeClass">@root.Name</a>
+</li>
+
+
+@foreach (var page in root.Children.Where(x => x.GetPropertyValue<bool>(Up.Mixins.PageInfo.PrimaryNavigation)))
+{
+    activeClass = page.Id == Model.SecondLevelNode().Id ? "active" : "";
+
+    <li>
+        <a href="@page.Url" class="@activeClass">@page.Name</a>
+    </li>
+}

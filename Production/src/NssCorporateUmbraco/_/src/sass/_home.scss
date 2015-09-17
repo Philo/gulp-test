@@ -1,0 +1,48 @@
+.home h2:not(.module__header) {
+    border-bottom: 1px solid $grey;
+    font-size: 1.7em;
+    margin-bottom: 0.5em;
+    padding-bottom: 0.5em;
+    }
+
+.hero {
+    background: url(../images/hero-icons.svg) right bottom / 100% no-repeat;
+    padding-bottom: 5%;
+    }
+
+.hero h2:not(.module__header) {
+    font-size: 2em;
+    letter-spacing: -1px;
+    padding-top: 5%;
+    @media (min-width: $breakpoint-medium) {
+        font-size: 2.5em;
+        }
+    @media (min-width: $breakpoint-large) {
+        font-size: 3em;
+        }
+    }
+
+.hero p {
+    margin-bottom: 1.5em;
+    @media (min-width: $breakpoint-medium) {
+        font-size: 1.2em;
+        margin-bottom: 1em;
+        }
+    @media (min-width: $breakpoint-large) {
+        font-size: 1.4em;
+        margin-bottom: 1em;
+        }
+    }
+
+.home__intro {
+    font-size: 1.1em;
+    @media (min-width: $breakpoint-medium) {
+        font-size: 1.3em;
+        }
+    @media (min-width: $breakpoint-large) {
+        font-size: 1.5em;
+        }
+    @media (min-width: $breakpoint-xlarge) {
+        font-size: 1.7em;
+        }
+    }

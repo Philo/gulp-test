@@ -1,0 +1,40 @@
+﻿@using NssCorporateUmbraco.Code.Base
+@using NssCorporateUmbraco.Code.Base.Extensions
+@using RJP.MultiUrlPicker.Models
+@inherits UmbracoViewPage
+
+@{
+    var features = Umbraco.TypedContent(Model.GetPropertyValue<int>("features"));
+
+    if (features == null || features.Children.Count() < 3)
+    {
+        features = Umbraco.TypedContent(Settings.DefaultFeatures);
+    }
+}
+
+<div class="footer__nuggets push--top clearfix">
+    <div class="wrapper push--top">
+        @{
+            foreach (var feature in features.Children)
+            {
+                var featureLink = feature.GetPropertyValue<MultiUrls>("titleLink").FirstOrDefault();
+                var image = feature.Get("image");
+                var img = Umbraco.TypedMedia(image);
+                
+                <div class="footer__nugget col small-12 medium-6 large-4 xlarge-4 push--top">
+                    @if (featureLink.HasValue())
+                    {
+                        <a href="@featureLink.Url">
+                            @if (img.HasValue())
+                            {
+                                <img src="@img.Url" alt="" />
+                            }
+                            <h2>@featureLink.Name</h2>
+                            <p>@feature.Get("text")</p>
+                        </a>
+                    }
+                </div>
+            }
+        }
+    </div>
+</div>

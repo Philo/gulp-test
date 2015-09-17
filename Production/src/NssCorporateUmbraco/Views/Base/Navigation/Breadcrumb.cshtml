@@ -1,0 +1,9 @@
+﻿@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+
+    @{
+        foreach (var page in Model.PathAsList())
+        {
+            <a href="@page.Url">@page.Name</a>  <i class="breadcrumb__chevron icon-right-open"></i>
+        }
+    }

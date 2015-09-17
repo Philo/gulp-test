@@ -1,0 +1,44 @@
+﻿@model NssCorporateUmbraco.Code.Forms.Models.ContactFormModel
+
+@if (TempData["Message"] == null)
+{
+   
+    using (Html.BeginUmbracoForm("Send", "Form", FormMethod.Post, new { @class = "form", id = "contact-form" }))
+    {
+
+        <ul>
+            <li class="forrm-row">
+                @Html.LabelFor(x => x.Name)
+                @Html.TextBoxFor(x => x.Name, "", new { required = true })
+                @Html.ValidationMessageFor(x => x.Name)
+            </li>
+            <li class="forrm-row">
+                @Html.LabelFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, "", new { required = true, pattern = "[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]+$", oninvalid = "setCustomValidity('Please enter a valid email address.')", onchange = "try{setCustomValidity('')}catch(e){}" })
+                @Html.ValidationMessageFor(x => x.Email)
+            </li>
+            <li class="forrm-row">
+                @Html.LabelFor(x => x.Address)
+                @Html.TextAreaFor(x => x.Address)
+            </li>
+            <li class="forrm-row">
+                @Html.LabelFor(x => x.Message)
+                @Html.TextAreaFor(x => x.Message, new { required = true })
+                @Html.ValidationMessageFor(x => x.Message)
+            </li>
+            <li>
+                <input type="submit" value="Send message" class="button" />
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <p>@TempData["Message"]</p>
+}
+
+<!--Include minfied version and instantiate form-->
+<script src="../../../scripts/js/forrm.min.js"></script>
+<script>
+    Forrm.init('#contact-form', { css: { errorClass: 'error', errorMessageClass: 'error-message' } });
+</script>

@@ -1,0 +1,34 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+    var callToAction = Model.ConvertUrlSingle(Up.Mixins.StandardContent.CallToAction);
+}
+
+<div class="article wrapper clearfix" id="content">
+    <div class="clearfix">
+        <div class="breadcrumbs col small-12">
+            <div class="breadcrumbs">
+                @Html.Partial("Base/Navigation/Breadcrumb")
+            </div>
+        </div>
+        <div class="landing__header col small-12">
+            <h1>@Model.Name</h1>
+            <div class="row">
+                <p class="intro col small-12 large-9">@Model.GetProperty(Up.Mixins.StandardContent.Introduction).Value</p>
+                @{
+                    if (callToAction.HasValue())
+                    {
+                        <a href="@callToAction.Url">@callToAction.Title</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col small-12 large-7 xlarge-6 push--xlarge-1">
+        <p>@Html.GetGridHtml(Model, Up.Mixins.StandardContent.GridBodyText, GridTypes.StormSingleColumnOnly.ToString())</p>
+    </div>
+</div>
+
+@Html.Partial("_Features")

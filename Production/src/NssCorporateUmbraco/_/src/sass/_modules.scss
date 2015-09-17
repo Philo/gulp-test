@@ -1,0 +1,135 @@
+.modules {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    width: 100%;
+    }
+
+.module {
+	background: #fff;
+	border: 1px solid #fff;
+	border-radius: 6px;
+	position: relative;
+	}
+
+.module:hover {
+	border: 1px solid $grey;
+    transition: background-color 0.3s linear, color 0.3s linear, border 0.3s linear;
+	}
+
+.module__header, 
+.article .module__header {
+	color: $dark-blue;
+    font-family:'Helvetica LT W01 Bold', sans-serif;
+	font-size: 1.05em;
+    font-weight: normal;
+	margin: 0;
+    }
+
+.module__header a, 
+.all-over .module__header, 
+.article .module__header {
+    border-radius: 6px 6px 0 0;
+	color: $dark-blue;
+	display: block;
+    font-size: 1.1em;
+    margin-left: -20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: background-color 0.3s linear, color 0.3s linear, border 0.3s linear;
+    width: calc(100% + 40px);
+    @media (min-width: $breakpoint-large) {
+	    padding: 15px 20px;
+	    }
+    &:hover, &:focus, &:active {
+        background: $dark-blue;
+		color: #fff;
+        margin-bottom: -1px;
+        padding-bottom: 11px;
+        text-decoration: none;
+        @media (min-width: $breakpoint-large) {
+            padding-bottom: 16px;
+            }
+		}
+    }
+
+.all-over a {
+    &:hover, &:focus, &:active {
+        outline: 0;
+        text-decoration: none;
+        }
+    }
+
+.all-over:hover {
+    .module__header {
+        margin-bottom: -1px;
+        padding-bottom: 11px;
+        @media (min-width: $breakpoint-large) {
+            padding-bottom: 16px;
+            }
+        }
+    }
+
+.module.padded.all-over:hover .module__header {
+    background: $dark-blue;
+    border-bottom-style: solid;
+    color: #fff;
+    }
+
+.module__header i:before {
+    margin-right: 0;
+    }
+
+.module__header i {
+    float: right;
+    }
+
+.module__body {
+    border-top: 1px dotted $dark-blue;
+	padding: 10px 20px;
+	@media (min-width: $breakpoint-large) {
+	    padding: 15px 20px;
+	    }
+	}
+
+.module__body, 
+.module__body > *:last-child {
+    margin-bottom: 0;
+    }
+
+.module a p {
+    color: #000;
+    text-decoration: none;
+    }
+
+.module__more {
+    bottom: 0.5em;
+    display: block;
+    font-size: 0.8em;
+    left: 0.5em;
+    position: absolute;
+    text-transform: uppercase;
+    }
+
+.module.padded .module__body {
+    padding-left: 0;
+    padding-right: 0;
+    }
+
+.article .module {
+    border: 1px solid $grey;
+    }
+
+.article .module__header {
+    margin-left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    &:hover, &:focus, &:active {
+        background: transparent;
+        color: $dark-blue;
+        }
+    }

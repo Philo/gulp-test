@@ -1,0 +1,66 @@
+.footer__nuggets {
+    border-top: 1px solid $grey;
+    }
+
+.footer__nugget {
+	font-size: 0.8em;
+	padding-left: 1em;
+	padding-right: 1em;
+    }
+
+.footer__nugget a {
+    &:hover, &:focus, &:active {
+        text-decoration: none;
+        h2 {
+            text-decoration: underline;
+            }
+        }
+    }
+
+.footer__nugget h2 {
+    margin-bottom: 0.5em;
+    }
+
+.footer__nugget img {
+	border: 1px solid $light-blue;
+    border-radius: 100px;
+    float: left;
+    margin-bottom: 3em;
+    margin-right: 1em;
+    padding: 7px;
+    width: 30%;
+    }
+
+.footer__nugget:nth-child(2) img {
+    border-color: #7DC048;
+    }
+
+.footer__nugget:nth-child(3) img {
+    border-color: #F4922D;
+    }
+
+.footer__nugget p {
+    color: #000;
+    }
+
+[role="contentinfo"] {
+    background: $dark-blue;
+    color: #fff;
+    font-size: 0.8em;
+    }
+
+[role="contentinfo"] h2 {
+    color: $light-blue;
+    margin-bottom: 0.5em;
+    }
+
+[role="contentinfo"] a {
+    color: #ddd;
+    }
+
+[role="contentinfo"] .nhs-logo {
+    @media (min-width: $breakpoint-medium) {
+        padding-top: 0.5em;
+        text-align: right;
+        }
+    }

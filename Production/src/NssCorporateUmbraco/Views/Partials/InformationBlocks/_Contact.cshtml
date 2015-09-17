@@ -1,0 +1,50 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@model IPublishedContent
+
+@{
+    Layout = null;
+}
+
+<!-- Render Contact -->
+<section class="how__section col small-12 medium-12 large-12 xlarge-12 clearfix">
+    <div class="row">
+        <h2 class="light-type col small-12 medium-3 large-4 xlarge-4">@Model.Get(Up.Mixins.InformationBlocks.title)</h2>
+        <div class="how__section__body col small-12 medium-9 large-8 xlarge-8">
+            <h3 class="icon-user">@Model.Get(Up.Mixins.InformationBlocks.contactFullName)</h3>
+            <p>@Model.Get(Up.Mixins.InformationBlocks.contactJobTitle)</p>
+            <ul>
+                @if (Model.Get(Up.Mixins.InformationBlocks.email).HasValue())
+                {
+                    <li class="icon-mail">Email: <a href="mailto:@Model.Get(Up.Mixins.InformationBlocks.email)">@Model.Get(Up.Mixins.InformationBlocks.email)</a></li>
+                }
+                @if (Model.Get(Up.Mixins.InformationBlocks.phone).HasValue())
+                {
+                    <li class="icon-phone">Phone: @Model.Get(Up.Mixins.InformationBlocks.phone)</li>
+                }
+                @if (Model.Get(Up.Mixins.InformationBlocks.mobile).HasValue())
+                {
+                    <li class="icon-mobile">
+                        Mobile: @Model.Get(Up.Mixins.InformationBlocks.mobile)
+                        @if (Model.Get(Up.Mixins.InformationBlocks.mobileAdditionalInfo).HasValue())
+                        {
+                            <small>@Model.Get(Up.Mixins.InformationBlocks.mobileAdditionalInfo)</small>
+                        }
+                    </li>
+                }
+                @if (Model.Get(Up.Mixins.InformationBlocks.textRelay).HasValue())
+                {
+                    <li class="icon-chat">
+                        Text relay: @Model.Get(Up.Mixins.InformationBlocks.textRelay)
+                        @if (Model.Get(Up.Mixins.InformationBlocks.textRelayAdditionalInfo).HasValue())
+                        {
+                            <small>@Model.Get(Up.Mixins.InformationBlocks.textRelayAdditionalInfo)</small>
+                        }
+                        <small></small>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+

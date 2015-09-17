@@ -1,0 +1,40 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+
+@{
+    Layout = null;
+}
+
+@{
+
+    if (Model.Children.FirstOrDefault(x => x.DocumentTypeAlias == Up.Mixins.InformationBlocks.ourAims) != null)
+    {
+        var ourAims = Model.Children.FirstOrDefault(x => x.DocumentTypeAlias == Up.Mixins.InformationBlocks.ourAims);
+        var numAims = ourAims.Children.Count();
+
+        <section class="how__aims how__section col small-12 medium-12 large-12 xlarge-12 clearfix">
+            <div class="row clearfix">
+                <h2 class="light-type col small-12 medium-3 large-3 xlarge-3">@ourAims.Get(Up.Mixins.InformationBlocks.title)</h2>
+                <div class="how__section__body col small-12 medium-9 large-9 xlarge-9">
+                    <p>@ourAims.Get(Up.Mixins.StandardContent.Introduction)</p>
+                    <h3 class="col small-12 medium-12 large-12 xlarge-12 clearfix push--top">We aim to achieve this through @numAims strategic objectives</h3>
+                </div>
+                <div class="col small-12 medium-9 switch--medium large-9 xlarge-9">
+                    <div class="how__objectives row">
+                        <ul class="light-type clearfix">
+                            @foreach (var aim in ourAims.Children)
+                            {
+                                <li class="col small-12 medium-6 large-6 xlarge-3">
+                                    <div>
+                                        @aim.Get(Up.Mixins.InformationBlocks.aim)
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+}

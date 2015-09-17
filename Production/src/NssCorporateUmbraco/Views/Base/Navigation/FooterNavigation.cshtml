@@ -1,0 +1,45 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@inherits UmbracoViewPage
+
+@{
+    const int level = 1;
+    var startPage = Model.AncestorsOrSelf(level).First();
+}
+
+<div class="col small-12 medium-4 large-4 xlarge-4 push--top push--bottom">
+    <h2>Business Units</h2>
+    <ul>
+        <li><a href="#">Scottish National Blood Transfusion Service</a></li>
+        <li><a href="#">Procurement, Commissioning and Facilities</a></li>
+        <li><a href="#">Practitioner and Counter Fraud Services</a></li>
+        <li><a href="#">Central Legal Office</a></li>
+        <li><a href="#">Public Health and Intelligence</a></li>
+        <li><a href="#">Information Technology</a></li>
+    </ul>
+</div>
+<div class="col small-12 medium-3 large-3 xlarge-3 push--top push--bottom">
+    <h2>National Services Scotland</h2>
+    <ul>
+        @{
+            foreach (var page in startPage.Children.Where(x => x.GetPropertyValue<bool>(Up.Mixins.PageInfo.FooterNavigation)))
+            {
+                <li>
+                    <a href="@page.Url">@page.Name</a>
+                </li>
+            }
+        }
+        <li><a href="#">Blog</a></li>
+    </ul>
+</div>
+<div class="col small-12 medium-3 large-3 xlarge-3 push--top push--bottom">
+    <h2>How we work</h2>
+    <ul>
+        <li><a href="http://www.nhsnss.org/pages/corporate/data_protection.php">Data Protection</a></li>
+        <li><a href="http://www.nhsnss.org/pages/corporate/equality_and_diversity.php">Equality &amp; Diversity</a></li>
+        <li><a href="http://www.nhsnss.org/pages/corporate/expenditure_reports.php">Expenditure Reports</a></li>
+        <li><a href="http://www.nhsnss.org/pages/corporate/freedom_of_information.php">Freedom of Information</a></li>
+        <li><a href="http://www.nhsnss.org/pages/corporate/privacy_advisory_committee.php">Privacy Advisory Committee</a></li>
+        <li><a href="#">Annual Reports</a></li>
+        <li><a href="#">Privacy and cookies</a></li>
+    </ul>
+</div>

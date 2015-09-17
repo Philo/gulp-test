@@ -1,0 +1,19 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@model IPublishedContent
+
+@{
+    Layout = null;
+}
+
+<!-- Render Textbox -->
+<section class="how__section col small-12 medium-12 large-12 xlarge-12 clearfix">
+    <div class="row">
+        <h2 class="light-type col small-12 medium-3 large-4 xlarge-4">@Model.Get(Up.Mixins.InformationBlocks.title)</h2>
+        <div class="how__section__body col small-12 medium-9 large-8 xlarge-8">
+            <p>
+                @Html.GetGridHtml(Model, Up.Mixins.StandardContent.BodyText, GridTypes.StormSingleColumnOnly.ToString())
+            </p>
+        </div>
+    </div>
+</section>

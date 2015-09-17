@@ -1,0 +1,21 @@
+﻿@using NssCorporateUmbraco.Code.Base
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits Umbraco.Web.Macros.PartialViewMacroPage
+@{
+    var title = Model.MacroParameters["urlTitle"];
+    var link = Model.MacroParameters["link"];
+    var isExternal = ConversionService.ConvertBool(Model.MacroParameters["isExternal"].ToString());
+}
+
+@if (link.HasValue())
+{
+    <a class="button" href="@link">
+        @title
+        @if (isExternal)
+        {
+            <i class="icon-external">
+                <span class="away">(external link)</span>
+            </i>
+        }
+    </a>
+}

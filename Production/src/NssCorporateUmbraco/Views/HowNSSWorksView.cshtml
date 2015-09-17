@@ -1,0 +1,45 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+}
+
+<main class="wrapper clearfix" id="content">
+    <div class="breadcrumbs col small-12 medium-12 large-12 xlarge-12">
+        @Html.Partial("Base/Navigation/Breadcrumb")
+    </div>
+    <div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+        <h1>@Model.Name</h1>
+    </div>
+    <div class="push--bottom clearfix">
+        <div class="row">
+            <div class="col small-12 medium-8 large-7 xlarge-7">
+                <p class="intro">@Model.GetPropertyValue(Up.Mixins.StandardContent.Introduction)</p>
+            </div>
+            @{
+                var callToAction = Model.ConvertUrlSingle(Up.Mixins.StandardContent.CallToAction);
+                var ctaAdditionalText = Model.GetPropertyValue(Up.Mixins.StandardContent.CtaAdditionalText);
+
+                if (callToAction.HasValue())
+                {
+                    <div class="landing__cta col small-12 medium-4 large-5 xlarge-4 switch--xlarge">
+                        @if (ctaAdditionalText.HasValue())
+                        {
+                            <p>@ctaAdditionalText</p>
+                        }
+                        <a class="button" href="@callToAction.Url">@callToAction.Title</a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+
+    @Html.Partial("Partials/InformationBlocks/_OurAims")
+    @Html.Partial("Partials/InformationBlocks/_OurStructure")
+
+    @Html.Partial("Partials/_InformationBlocks")
+
+</main>
+
+@Html.Partial("_Features")

@@ -1,0 +1,29 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@using NssCorporateUmbraco.Code.Forms.Models
+@inherits UmbracoViewPage
+
+@{
+    var informationBlocks = Model.Children.FirstOrDefault(x => x.DocumentTypeAlias == "docInformationBlocks");
+
+    if (informationBlocks.HasValue() && informationBlocks.Children.IsNotEmpty())
+    {
+        //Render the Information Blocks
+        foreach (var block in informationBlocks.Children)
+        {
+            if (block.DocumentTypeAlias == Up.Mixins.InformationBlocks.textbox)
+            {
+                @Html.Partial("Partials/InformationBlocks/_Textbox", block)
+            }
+            else if (block.DocumentTypeAlias == Up.Mixins.InformationBlocks.contact)
+            {
+                @Html.Partial("Partials/InformationBlocks/_Contact", block)
+            }
+            else if (block.DocumentTypeAlias == Up.Mixins.InformationBlocks.form)
+            {
+             
+                @Html.Partial("Partials/InformationBlocks/_FormWrapper", block)
+            }
+        }
+    }
+}

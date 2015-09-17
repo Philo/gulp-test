@@ -199,3 +199,6 @@ FakesAssemblies/
 # Project Specific
 .artifacts/
 _/dist/ 
+
+# Umbraco
+Production/src/NssCorporateUmbraco/App_Data

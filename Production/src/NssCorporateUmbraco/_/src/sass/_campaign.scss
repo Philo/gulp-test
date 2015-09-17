@@ -1,0 +1,27 @@
+.campaign--annual-report .hero {
+	background: url(../images/blood-tissues-cells.svg) right bottom / 100% no-repeat;
+	padding-bottom: 5%;
+	@media (min-width: $breakpoint-large) {
+	    padding-bottom: 1em;
+	    }
+	}
+
+.campaign__body, 
+.campaign__cta {
+	@media (min-width: $breakpoint-medium) {
+	    font-size: 1.2em;
+	    }
+	}
+
+.campaign__cta {
+	background: lighten($grey,10%);
+	border: 1px solid lighten($grey,5%);
+	border-radius: 4px; 
+	padding: 1em;
+	text-align: center;
+	}
+
+.cta__description {
+	font-size: 0.8em;
+	margin-bottom: 0;
+	}

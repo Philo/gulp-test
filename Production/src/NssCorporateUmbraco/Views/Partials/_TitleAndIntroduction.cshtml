@@ -1,0 +1,15 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+
+<h1>@Model.Name</h1>
+<h3>@Model.GetPropertyValue(Up.Mixins.StandardContent.Introduction)</h3>
+
+@{
+    var callToAction = Model.ConvertUrlSingle(Up.Mixins.StandardContent.CallToAction);    
+
+    if (callToAction.HasValue())
+    {
+        <a href="@callToAction.Url">@callToAction.Title</a>
+    }
+} 

@@ -1,0 +1,16 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@model IEnumerable<IPublishedContent>
+
+@{
+    foreach (var child in Model)
+    {
+        <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <a href="@child.Url">
+                <h2 class="module__header">@child.Name</h2>
+                <p class="module__body">
+                    @child.GetPropertyValue(Up.Mixins.StandardContent.PageSummary)
+                </p>
+            </a> 
+        </li>
+    }
+}

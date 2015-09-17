@@ -1,0 +1,53 @@
+.search-results .landing__header {
+	margin-bottom: 0;
+	}
+
+.search-results__filter {
+	color: #3F4C51;
+	margin-left: 1em;
+	}
+
+.search-results__filter:before {
+	color: darken($grey,40%);
+	margin-right: 0.35em;
+	}
+
+.search-results__filter.disabled:before {
+	color: darken($grey,20%);
+	}
+
+.search-results__list li {
+    border-bottom: 1px solid $grey;
+    padding-bottom: 1em;
+    padding-top: 1em;
+    }
+
+.search-results__list a {
+    &:hover, &:focus, &:active {
+        text-decoration: none;
+        h2 {
+			text-decoration: underline;
+        	}
+        p {
+			color: #000;
+        	}
+		}
+	}
+
+.search-results__list .breadcrumbs {
+	color: #3F4C51;
+	padding-top: 0;
+	}
+
+.search-results__list__description {
+    color: #3F4C51;
+    }
+
+.search-results__list h2 {
+	margin-bottom: 0.5em;
+	margin-top: 0.5em;
+	}
+
+.search-results__list p {
+	margin-bottom: 0;
+	}

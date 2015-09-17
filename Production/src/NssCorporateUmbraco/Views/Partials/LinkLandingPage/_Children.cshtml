@@ -1,0 +1,44 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@model IEnumerable<IPublishedContent>
+
+@{
+    foreach (var child in Model)
+    {
+        <li class="module col padded small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <h2 class="module__header">
+                <a href="@child.Url">
+                    @child.Name
+                    <i class="icon-angle-right"></i>
+                </a>
+            </h2>
+            <div class="module__body">
+                @{
+                    var hasMoreChildren = false;
+                    var numChildrenVisible = child.Children.Count(x => !x.GetPropertyValue<bool>(Up.Mixins.PageInfo.HideInParentLister));
+                    var currentCount = 0;
+                    var commaOption = "";
+
+                    foreach (var grandChild in child.Children)
+                    {
+                        currentCount++;
+                        var hideMe = grandChild.GetPropertyValue<bool>(Up.Mixins.PageInfo.HideInParentLister);
+                        if (!hideMe)
+                        {
+                            commaOption = currentCount < numChildrenVisible ? "," : "";
+                            <a href="@grandChild.Url">@grandChild.Name</a>@commaOption
+                        }
+                        else
+                        {
+                            hasMoreChildren = true;
+                        }
+                    }
+                    if (hasMoreChildren)
+                    {
+                        @: and
+                        <a href="@child.Url">more</a>
+                    }
+                }
+            </div>
+        </li>
+                    }
+}

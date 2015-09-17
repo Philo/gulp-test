@@ -1,0 +1,57 @@
+﻿@inherits UmbracoViewPage<dynamic>
+@using Newtonsoft.Json.Linq
+
+@{
+    //Only works for one colum
+}    
+
+@if (Model != null && Model.sections != null)
+{
+    foreach (var section in Model.sections) 
+    {
+        foreach (var row in section.rows) 
+        {
+            @RenderRow(row);
+        }
+    }   
+}
+
+@helper RenderRow(dynamic row)
+{
+        foreach ( var area in row.areas ) 
+        {
+            foreach (var control in area.controls) 
+            {
+                if (control !=null && control.editor != null && control.editor.view != null ) 
+                {
+                    <text>@Html.Partial("grid/editors/base", (object)control)</text>
+                }
+            }
+        }
+}
+
+@functions {
+    public static MvcHtmlString RenderElementAttributes(dynamic contentItem)
+    {
+        var attrs = new List<string>();
+        JObject cfg = contentItem.config;
+
+        if(cfg != null)
+            foreach (JProperty property in cfg.Properties()) {
+                attrs.Add(property.Name + "=\"" + property.Value.ToString() + "\"");
+            }
+                
+        JObject style = contentItem.styles;
+
+        if (style != null) { 
+        var cssVals = new List<string>();
+        foreach (JProperty property in style.Properties())
+            cssVals.Add(property.Name + ":" + property.Value.ToString() + ";");
+
+        if (cssVals.Any())
+            attrs.Add("style=\"" + string.Join(" ", cssVals) + "\"");
+        }
+            
+        return new MvcHtmlString(string.Join(" ", attrs));
+    }
+}

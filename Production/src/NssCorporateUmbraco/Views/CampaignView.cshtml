@@ -1,0 +1,34 @@
+﻿@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+}
+
+<main class="campaign campaign--annual-report wrapper clearfix" id="content">
+	<div class="hero col small-12 medium-12 large-12 xlarge-12 push--bottom clearfix">
+		<div class="row">
+			<div class="breadcrumbs col small-12 medium-12 large-12 xlarge-12">
+				<a href="/">Home</a>  <i class="breadcrumb__chevron icon-right-open"></i>
+			</div>
+			<div class="col small-12 medium-12 large-6 xlarge-6">
+				<h2 class="light-type">Annual report 2015</h2>
+				<p>Full 300 page report now available for download</p>
+			</div>
+		</div>
+	</div>
+    <div class="campaign__body article col small-12 medium-12 large-6 xlarge-6 push--bottom">
+        <p>Each year, we generate a comprehensive annual report detailing our work and the impact we’ve made.</p>
+		<p>In 2014, we strove to redefine our relationships with our three key audiences: professional bodies, the public sector, and the general public.</p>
+		<p>Learn how we:</p>
+		<ul>
+			<li>Integrated health & social care services</li>
+			<li>Improved working relationships between the public sector and the Scottish people</li>
+			<li>Did something else really neat</li>
+		</ul>
+    </div>
+    <div class="campaign__cta col small-12 medium-12 large-4 push--large-1 xlarge-4 push--xlarge-1">
+		<p><a class="button" href="#">Download the <span class="break">2014/2015 report</span></a></p>
+		<p class="cta__description">126 page PDF, 134kb</p>
+    </div>
+</main>
+@Html.Partial("_Features")

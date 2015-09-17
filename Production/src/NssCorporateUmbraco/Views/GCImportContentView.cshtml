@@ -1,0 +1,94 @@
+﻿@using NssCorporateUmbraco.Code.GatherContent
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<link href="/content/telestrap/css/bootstrap-theme.css" rel="stylesheet">
+
+@{
+    Layout = null;
+
+    var startPageId = 0;
+
+    int.TryParse(Request["StartPageId"], out startPageId);
+
+    IPublishedContent startPage = null;
+
+    if (startPageId > 0)
+    {
+        startPage = Umbraco.TypedContent(startPageId);
+        ImportContent.StartImport(startPage);
+    }
+
+}
+
+<div class="container">
+
+    <h1>Import Page Content from Gather Content</h1>
+    @if (startPageId == 0)
+    {
+    <form>
+
+        <table>
+            <tr>
+                <td>Start Page Id: <br /><i>1048</i></td>
+                <td><input type="text" name="StartPageId" class="form-control" /></td>
+            </tr>
+            <tr><td colspan="2">&nbsp;</td></tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td><input type="submit" text="Import" class="btn btn-lg btn-success" /></td>
+            </tr>
+        </table>
+
+    </form>
+    }
+    else
+    {
+    <div class="page-header">
+        <h2>Import Complete</h2>
+    </div>
+
+        if (startPage != null)
+        {
+            foreach (var item in startPage.Children)
+            {
+            @item.Name
+            <i>(@(item.GetPropertyValue<string>("gatherContentId"))</i>
+            <br />
+
+                foreach (var subitem in item.Children)
+                {
+                <text>1---</text>
+                @subitem.Name
+                <i>(@(subitem.GetPropertyValue<string>("gatherContentId")))</i>
+                <br />
+
+                    foreach (var subsubitem in subitem.Children)
+                    {
+                    <text>2-------</text>
+                    @subsubitem.Name
+                    <i>(@(subsubitem.GetPropertyValue<string>("gatherContentId"))</i>
+                    <br />
+
+                        foreach (var subsubsubitem in subsubitem.Children)
+                        {
+                        <text>3---------------</text>
+                        @subsubsubitem.Name
+                        <i>(@(subsubsubitem.GetPropertyValue<string>("gatherContentId")))</i>
+                        <br />
+
+                            foreach (var subsubsubsubitem in subsubsubitem.Children)
+                            {
+                            <text>4------------------------------</text>
+                            @subsubsubsubitem.Name
+                            <i>(@(subsubsubsubitem.GetPropertyValue<string>("gatherContentId")))</i>
+                            <br />
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+</div>

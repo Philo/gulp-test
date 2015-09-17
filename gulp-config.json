@@ -1,26 +1,26 @@
 ﻿{
   "appSassPath": [
-    "_/src/sass/*.scss",
-    "_/src/sass/**/*.scss"
+    "Production/src/NssCorporateUmbraco/_/src/sass/*.scss",
+    "Production/src/NssCorporateUmbraco/_/src/sass/**/*.scss"
   ],
   "appJsPath": [
-    "_/src/js/*.js",
-    "_/src/js/**/**/*.js"
+    "Production/src/NssCorporateUmbraco/_/src/js/*.js",
+    "Production/src/NssCorporateUmbraco/_/src/js/**/**/*.js"
   ],
   "extras": [
-    "_/src/**/*",
-    "!_/src/{sass,sass/**}",
-    "!_/src/{js,js/**}",
-    "!_/src/{images,images/**}"
+    "Production/src/NssCorporateUmbraco/_/src/**/*",
+    "!Production/src/NssCorporateUmbraco/_/src/{sass,sass/**}",
+    "!Production/src/NssCorporateUmbraco/_/src/{js,js/**}",
+    "!Production/src/NssCorporateUmbraco/_/src/{images,images/**}"
   ],
   "images": [
-    "_/src/images/**/*.{png,jpg,jpeg,gif,svg}",
-    "_/src/images/*.{png,jpg,jpeg,gif,svg}"
+    "Production/src/NssCorporateUmbraco/_/src/images/**/*.{png,jpg,jpeg,gif,svg}",
+    "Production/src/NssCorporateUmbraco/_/src/images/*.{png,jpg,jpeg,gif,svg}"
   ],
   "outputPath": {
-    "dist" : "_/dist",
-    "appSass" : "_/dist/css",
-    "appJs" : "_/dist/js",
-    "images" : "_/dist/images"
+    "dist" : "Production/src/NssCorporateUmbraco/_/dist",
+    "appSass" : "Production/src/NssCorporateUmbraco/_/dist/css",
+    "appJs" : "Production/src/NssCorporateUmbraco/_/dist/js",
+    "images" : "Production/src/NssCorporateUmbraco/_/dist/images"
   }
 }

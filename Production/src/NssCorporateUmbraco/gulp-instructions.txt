@@ -1,0 +1,7 @@
+Add gulp.config to .gitignore
+Add IP to gulp.config
+Set up xxxx.local in IIS
+Set hosts file line - 127.0.0.1	xxxx.local
+In gulfile set proxy to xxxx.local
+
+Move all of _/ to _/src

@@ -1,0 +1,46 @@
+﻿@using Lucene.Net.Util
+@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits Umbraco.Web.Macros.PartialViewMacroPage
+
+
+@{
+    var node = Umbraco.TypedContent(Model.MacroParameters["contactNode"]);
+
+    var text = node.Get(Up.Content.Common.Text);
+
+    var sbu = node.Get("sbuContact");
+    var sbuContent = Umbraco.TypedContent(sbu);
+    var sbuLink = sbuContent.ConvertUrlSingle("callToAction");
+
+    var sbuClass = sbuContent.Get("uniqueName");
+}
+
+@if (node.IsValid())
+{
+    <div class="col small-12 medium-4 large-3 xlarge-3 push--large-1">
+        <section class="article__contact module push--bottom clearfix">
+            <h2 class="module__header">Contact</h2>
+            <div class="module__body">
+                This service is offered by
+                @if (sbuLink.HasValue() && sbuClass.HasValue())
+                {
+                    <a class="article__sbu @sbuClass" href=@sbuLink.Url>
+                        @sbuLink.Title
+                    </a>
+                }
+                else
+                {
+                    if (sbuContent.HasValue())
+                    {
+                        @sbuContent.Name
+                    }
+                }
+                @if(text.HasValue()){
+                    @Html.Raw(text)
+                }
+            </div>
+        </section>
+    </div>
+}
+

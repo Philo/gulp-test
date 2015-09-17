@@ -1,0 +1,43 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+    var callToAction = Model.ConvertUrlSingle(Up.Mixins.StandardContent.CallToAction);
+}
+
+<div class="article wrapper clearfix" id="content">
+    <div class="breadcrumbs col small-12 medium-12 large-12 xlarge-12">
+        @Html.Partial("Base/Navigation/Breadcrumb")
+    </div>
+    <div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+        <h1>@Model.Name</h1>
+        <div class="row">
+            <p class="intro col small-12 medium-12 large-9 xlarge-9">@Model.GetPropertyValue(Up.Mixins.StandardContent.Introduction)</p>
+        </div>
+    </div>
+    <div class="col small-12 medium-12 large-7 xlarge-6 push--xlarge-1">
+        @Html.GetGridHtml(Model, Up.Mixins.StandardContent.GridBodyText, GridTypes.StormSingleColumnOnly.ToString())
+    </div>
+    @Html.Partial("Partials/_ContactSection")
+</div>
+<div class="wrapper clearfix">
+    <div class="landing__extra col small-12 medium-12 large-12 xlarge-12 push--top clearfix">
+        <div class="clearfix row">
+            <h2 class="col small-12 medium-12 large-12 xlarge-12 push--top push--bottom">All @Model.Parent.Name services</h2>
+            <ul class="modules">
+                @foreach (var sibling in Model.Siblings())
+                {
+                    <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+                        <a href="@sibling.Url">
+                            <h2 class="module__header">@sibling.Name</h2>
+                            <p class="module__body">@sibling.GetPropertyValue(Up.Mixins.StandardContent.PageSummary)</p>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Features")

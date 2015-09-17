@@ -1,0 +1,14 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@using NssCorporateUmbraco.Code.Forms.Models
+@model IPublishedContent
+<a id="contactanchor"></a>
+<section class="how__section col small-12 medium-12 large-12 xlarge-12 clearfix">
+    <div class="row">
+        <h2 class="light-type col small-12 medium-3 large-4 xlarge-4">@Model.Name</h2>
+        <div class="col small-12 medium-9 large-8 xlarge-8">
+            <p>@Model.Get(Up.Mixins.InformationBlocks.formDescription)</p>
+            @Html.Partial("InformationBlocks/_Form", new ContactFormModel())
+        </div>
+    </div>
+</section>

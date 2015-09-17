@@ -1,0 +1,19 @@
+@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+}
+
+<main class="landing services wrapper" id="content">
+	<div class="breadcrumbs col small-12 medium-12 large-12 xlarge-12">
+		@Html.Partial("Base/Navigation/Breadcrumb")
+	</div>
+    <div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+		<h1>@Model.Name</h1>
+	</div>
+    <ul class="modules">
+		@Html.Partial("LinkLandingPage/_Children", Model.Children)
+	</ul>
+</main>
+@Html.Partial("_Features")

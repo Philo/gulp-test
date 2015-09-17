@@ -1,0 +1,9 @@
+﻿@model IEnumerable<IPublishedContent>
+
+
+    @foreach (var sibling in Model)
+    {
+        <li class="col small-12 medium-6 large-4 xlarge-3">
+            <a href="@sibling.Url">@sibling.Name</a>
+        </li>
+    }

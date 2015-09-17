@@ -1,0 +1,10 @@
+﻿@using NssCorporateUmbraco.Code.Base
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+
+<title>@SEOHelpers.TitleTag(Model) | NHS National Services Scotland</title>
+<meta name="description" content="@SEOHelpers.MetaDescription(Model)" />
+<meta property="og:title" content="@SEOHelpers.OGTitle(Model)" />
+<meta property="og:description" content="@SEOHelpers.OGDescription(Model)" />
+@Html.Raw(SEOHelpers.OGImage(Model))
+<link rel="canonical" href="@Settings.BaseUrlWithoutSlash@Model.FinalUrl()" />

@@ -1,0 +1,125 @@
+.how__section {
+	border-top: 1px solid $grey;
+	padding-bottom: 2em;
+	padding-top: 2em;
+	}
+
+.how__section__body :not(.how__objectives) *:last-child {
+	margin-bottom: 0;
+	}
+
+.how__section h2 {
+	margin-bottom: 0.25em;
+	@media (min-width: $breakpoint-medium) {
+		font-size: 1.5em;
+	    margin-bottom: 0;
+	    margin-top: 0.25em;
+	    }
+	}
+
+.how__aims h3 {
+	margin-bottom: 1em;
+	}
+
+.how__aims ul {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	}
+
+.how__aims li {
+	align-items: center;
+	border: 2px solid $dark-blue;
+	border-radius: 10px 0 10px 0;
+	color: $dark-blue;
+	display: flex;
+	font-size: 1.2em;
+	justify-content: center;
+	line-height: 1.2;
+	margin-bottom: 1em;
+	padding: 1em; 
+	position: relative;
+	text-align: center;
+	transition: all 0.2s linear;
+	&:hover, &:focus, &:active {
+		border-radius: 0 10px 0 10px;
+		}
+	}
+
+.how__structure {
+	padding-top: 4em;
+	}
+
+.how__structure h2 {
+	@media (min-width: $breakpoint-medium) { 
+	    margin-top: 0.75em;
+	    }
+	}
+
+.how__structure__number {
+	float: left;
+	font-size: 0.7em;
+	line-height: 1.2;
+	text-align: center;
+	text-transform: uppercase;
+	@media (min-width: $breakpoint-medium) {
+	    margin-top: 0;
+	    }
+	@media (min-width: $breakpoint-large) {
+	    text-align: left;
+	    width: auto !important;
+	    }
+	}
+
+.how__section__body .how__structure__digit {
+	border: 2px solid $dark-blue;
+	border-radius: 100px;
+	color: $dark-blue;
+	display: block;
+	font-family:'Helvetica LT W01 Light', sans-serif;
+	font-size: 3.4em;
+	height: 70px;
+	margin: 0 auto 0.25em auto;
+	padding-top: 0.25em;
+	text-align: center;
+	width: 70px;
+	@media (min-width: $breakpoint-large) {
+	    float: left;
+	    margin-right: 10px;
+	    }
+	}
+
+.how__structure__text {
+	display: block;
+	margin: 0 auto;
+	width: 70px;
+	@media (min-width: $breakpoint-large) {
+		float: left;
+		margin-left: 0;
+		margin-top: 1.4em;
+	    width: 8em;
+	    }
+	}
+
+.how__structure__plus {
+	float: left;
+	font-family:'Helvetica LT W01 Light', sans-serif;
+	font-size: 2.4em;
+	text-align: center;
+	@media (min-width: $breakpoint-large) {
+		margin-right: 0.9em;
+	    margin-top: 0;
+	    width: auto;
+	    }
+	}
+
+.big-number {
+	border: 1px solid $grey;
+	font-size: 2em;
+	padding: 0.5em;
+	}
+
+.big-number .digits {
+	font-size: 2em;
+	font-weight: bold; 
+	}

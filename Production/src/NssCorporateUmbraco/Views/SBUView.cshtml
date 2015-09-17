@@ -1,0 +1,154 @@
+﻿@using NssCorporateUmbraco.Code.Base.Constants
+@using NssCorporateUmbraco.Code.Base.Extensions
+@inherits UmbracoViewPage
+@{
+    Layout = "_basePage.cshtml";
+}
+
+<div class="wrapper landing clearfix" id="content">
+	<div class="breadcrumbs col small-12">
+	    @Html.Partial("Base/Navigation/Breadcrumb")
+	</div>
+    <div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+		<h1>@Model.Name</h1>
+	</div>
+	<div class="push--bottom clearfix">
+		<div class="landing__intro col small-12 medium-8 large-7 xlarge-7 push--bottom">
+            <p>@Model.GetPropertyValue(Up.Mixins.StandardContent.Introduction)</p>
+		</div>
+        @{
+            var callToAction = Model.ConvertUrlSingle(Up.Mixins.StandardContent.CallToAction);
+            var ctaAdditionalText = Model.GetPropertyValue(Up.Mixins.StandardContent.CtaAdditionalText);
+
+            if (callToAction.HasValue())
+            {
+                <div class="landing__cta col small-12 medium-4 large-5 xlarge-4 switch--xlarge">
+                    @if (ctaAdditionalText.HasValue())
+                    {
+                        <p>@ctaAdditionalText</p>
+                    }
+                    <a class="button" href="@callToAction.Url">@callToAction.Title</a>
+                </div>
+            }
+        }
+	</div>
+	<div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+		<h2>Brands</h2>
+	</div>
+	<ul class="modules">
+		<li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <a href="/services/blood-tissues-and-cells/blood/">
+                <h2 class="module__header">Lorem ipsum</h2>
+                <p class="module__body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et exercitationem expedita, consectetur.
+                </p>
+            </a> 
+        </li>
+        <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <a href="/services/blood-tissues-and-cells/tissues-and-cells/">
+                <h2 class="module__header">Lorem ipsum</h2>
+                <p class="module__body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et exercitationem expedita, consectetur.
+                </p>
+            </a> 
+        </li>
+        <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <a href="/services/blood-tissues-and-cells/clinical-resources/">
+                <h2 class="module__header">Lorem ipsum</h2>
+                <p class="module__body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et exercitationem expedita, consectetur.
+                </p>
+            </a> 
+        </li>
+        <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <a href="/services/blood-tissues-and-cells/research-development-and-innovation/">
+                <h2 class="module__header">Lorem ipsum</h2>
+                <p class="module__body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et exercitationem expedita, consectetur.
+                </p>
+            </a> 
+        </li>
+        <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <a href="/services/blood-tissues-and-cells/training/">
+                <h2 class="module__header">Lorem ipsum</h2>
+                <p class="module__body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et exercitationem expedita, consectetur.
+                </p>
+            </a> 
+        </li>
+        <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+            <a href="/services/blood-tissues-and-cells/testing/">
+                <h2 class="module__header">Lorem ipsum</h2>
+                <p class="module__body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et exercitationem expedita, consectetur.
+                </p>
+            </a> 
+        </li>
+	</ul>
+	<div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+		<h2>Services</h2>
+	</div>
+	<ul class="modules">
+        @{
+            var relatedServiceValue = Model.GetPropertyValue<string>("relatedServices");
+            var relatedServiceList = relatedServiceValue.Split(new string[] {","}, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse);
+            var relatedServiceCollection = Umbraco.TypedContent(relatedServiceList).Where(x => x != null);
+
+            foreach (var service in relatedServiceCollection)
+            {   
+                <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+                    <a href="/services/blood-tissues-and-cells/blood/">
+                        <h2 class="module__header">@service.Name</h2>
+                        <p class="module__body">
+                            @service.Get(Up.Mixins.StandardContent.PageSummary)
+                        </p>
+                    </a>
+                </li>
+            }
+        }
+	</ul>
+	<div class="landing__header col small-12 medium-12 large-12 xlarge-12">
+		<h2>Contact</h2>
+	</div>
+	<div class="col small-12 medium-6 large-6 xlarge-6">
+		<h3>Team name or title</h3>
+		William Hughes<br />
+		Associate Director Manufacturing<br />
+		Phone: 0131 314 5557<br />
+		Email: whughes@nhs.net<br />
+		SNBTS<br />
+		Ellen's Glen Road<br />
+		Edinburgh<br />
+		EH1 7QT
+	</div>
+	<div class="col small-12 medium-6 large-6 xlarge-6">
+		<h3>Team name or title</h3>
+		William Hughes<br />
+		Associate Director Manufacturing<br />
+		Phone: 0131 314 5557<br />
+		Email: whughes@nhs.net<br />
+		SNBTS<br />
+		Ellen's Glen Road<br />
+		Edinburgh<br />
+		EH1 7QT
+	</div>
+	<div class="landing__extra col small-12 push--top clearfix">
+		<h2 class="push--top push--bottom">All business units</h2>
+	</div>
+    <ul class="modules push--top clearfix">
+        @{
+            foreach (var sbu in Model.Siblings().Where(x => x.Id != 1549))
+            {
+                <li class="module padded all-over col small-12 medium-6 large-4 xlarge-3 push--bottom">
+                    <a href="@sbu.Url">
+                        <h3 class="module__header">@sbu.Name</h3>
+                        <p class="module__body">@sbu.GetPropertyValue(Up.Mixins.StandardContent.PageSummary)</p>
+                    </a>
+                </li>
+            }
+        }
+    </ul>
+	
+</div>
+
+@Html.Partial("_Features")

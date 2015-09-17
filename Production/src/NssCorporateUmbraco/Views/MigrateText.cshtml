@@ -1,0 +1,47 @@
+﻿@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+
+
+@functions
+{
+
+    public void SetBodyText(IEnumerable<IContent> items)
+    {
+        foreach (var item in items)
+        {
+            SetBodyText(item);
+        }
+    }
+
+    public void SetBodyText(IContent content)
+    {
+        if (content.HasProperty("gridBodyText"))
+        {
+            var contentService = ApplicationContext.Current.Services.ContentService;
+
+            var newText = content.GetValue("bodyText");
+
+            var newValue = "{ \"name\": \"1 column layout\", \"sections\": [ { \"grid\": 12, \"rows\": [ { \"name\": \"Headline\", \"areas\": [ { \"grid\": 12, \"controls\": [ { \"value\": \"" + newText + "\", \"editor\": { \"alias\": \"rte\" } } ] } ], \"id\": \"" + Guid.NewGuid() + "\" } ] } ] }";
+
+
+            content.SetValue("gridBodyText", newValue);
+            contentService.SaveAndPublishWithStatus(content);
+
+            Response.Write("Set content on :" + content.Name + " " + content.Id);
+            Response.Write("</br></br>");
+        }
+        else
+        {
+            Response.Write("Skipping: " + content.Name + " " + content.Id);
+        }
+        SetBodyText(content.Children());
+
+    }
+
+
+}
+
+@{
+    var contentService = ApplicationContext.Current.Services.ContentService;
+    var content = contentService.GetById(1048);
+    SetBodyText(content);
+}

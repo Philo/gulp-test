@@ -38,6 +38,14 @@ IF NOT DEFINED NEXT_MANIFEST_PATH (
   )
 )
 
+IF NOT DEFINED NEXT_ASSET_MANIFEST_PATH (
+  SET NEXT_ASSET_MANIFEST_PATH=%ARTIFACTS%\assetmanifest
+
+  IF NOT DEFINED PREVIOUS_ASSET_MANIFEST_PATH (
+    SET PREVIOUS_ASSET_MANIFEST_PATH=%ARTIFACTS%\assetmanifest
+  )
+)
+
 IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
   echo Installing Kudu Sync
@@ -47,6 +55,21 @@ IF NOT DEFINED KUDU_SYNC_CMD (
   :: Locally just running "kuduSync" would also work
   SET KUDU_SYNC_CMD=%appdata%\npm\kuduSync.cmd
 )
+
+IF NOT DEFINED DEPLOYMENT_TEMP (
+  SET DEPLOYMENT_TEMP=%temp%\___deployTemp%random%
+  SET CLEAN_LOCAL_DEPLOYMENT_TEMP=true
+)
+
+IF DEFINED CLEAN_LOCAL_DEPLOYMENT_TEMP (
+  IF EXIST "%DEPLOYMENT_TEMP%" rd /s /q "%DEPLOYMENT_TEMP%"
+  mkdir "%DEPLOYMENT_TEMP%"
+)
+
+IF NOT DEFINED MSBUILD_PATH (
+  SET MSBUILD_PATH=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
+)
+
 goto Deployment
 
 :: Utility Functions
@@ -109,12 +132,33 @@ IF EXIST "%DEPLOYMENT_SOURCE%\gulpfile.js" (
   popd
 )
 
-:: 4. KuduSync
-IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-  echo +--== Running KuduSync ==--+
-  call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%DEPLOYMENT_SOURCE%\_" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd;src"
+:: 1. Restore NuGet packages
+IF /I "Production\src\NssCorporateUmbraco.sln" NEQ "" (
+  call :ExecuteCmd nuget restore "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco.sln"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
+
+:: 2. Build to the temporary path
+IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
+  call :ExecuteCmd "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="%DEPLOYMENT_TEMP%";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\Production\src\\" %SCM_BUILD_ARGS%
+) ELSE (
+  call :ExecuteCmd "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /p:AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\Production\src\\" %SCM_BUILD_ARGS%
+)
+
+:: 3. KuduSync
+IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
+  echo +--== Running KuduSync for assets ==--+
+  call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\_\dist" -t "%DEPLOYMENT_TEMP%\_\dist" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%"
+  IF !ERRORLEVEL! NEQ 0 goto error
+)
+
+:: 3. KuduSync
+IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
+  echo +--== Running KuduSync for deployment ==--+
+  call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%DEPLOYMENT_TEMP%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
+  IF !ERRORLEVEL! NEQ 0 goto error
+)
+
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
