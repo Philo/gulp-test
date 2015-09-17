@@ -198,4 +198,4 @@ FakesAssemblies/
 
 # Project Specific
 .artifacts/
-_/dist/rm -rf 
+_/dist/ 

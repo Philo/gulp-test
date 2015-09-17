@@ -112,7 +112,7 @@ IF EXIST "%DEPLOYMENT_SOURCE%\gulpfile.js" (
 :: 4. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   echo +--== Running KuduSync ==--+
-  call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -f "%DEPLOYMENT_SOURCE%\_" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd;src"
+  call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%DEPLOYMENT_SOURCE%\_" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd;src"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
