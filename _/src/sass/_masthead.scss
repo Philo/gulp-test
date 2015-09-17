@@ -41,10 +41,6 @@
     @media (min-width: $breakpoint-xlarge) {
         font-size: 2em;
         }
-    &:hover, &:focus, &:active {
-        color: #ccc;
-        text-decoration: none;
-        }
     }
 
 [role="banner"] .nhs-logo {
@@ -102,7 +98,6 @@
     }
 
 [role="search"] input {
-    background: #efefef;
     border-radius: 4px;
     font-size: 0.8em;
     height: 34px;    
@@ -116,15 +111,12 @@
         line-height: 44px;
         }
     &:hover, &:focus, &:active {
-        background: #fff;
         font-size: 1em;
-        height: 42px;
-        margin-bottom: -4px;
-        margin-top: -4px;
-        margin-left: -4px;
-        margin-right: -4px;
+        height: 50px;
+        margin-bottom: -8px;
+        margin-top: -8px;
         @media (min-width: $breakpoint-large) {
-            height: 52px;  
+            height: 60px;  
             }
         }
     }
@@ -213,9 +205,6 @@
         padding-top: 10px;
         text-decoration: none;
         }
-    &:hover, &:focus {
-        background: #efefef;
-        }
     }
 
 [role="navigation"] li.expanding-search__toggle a {
@@ -248,9 +237,6 @@
 .masthead__follow a {
     color: #fff;
     margin-left: 1em;
-    &:hover, &:focus, &:active {
-        color: $light-blue;
-        }
     }
 
 .masthead__follow a:first-child {

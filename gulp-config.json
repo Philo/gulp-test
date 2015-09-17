@@ -7,25 +7,20 @@
     "_/src/js/*.js",
     "_/src/js/**/**/*.js"
   ],
-  "vendorCss": [
-    "bootstrap/dist/css/bootstrap.css",
-    "font-awesome/css/font-awesome.css",
-    "video.js/dist/video-js/video-js.css",
-    "animate.css/animate.css"
-  ],
-  "vendorJs": [
-    "video.js/dist/video-js/video.dev.js",
-    "angular/angular.js",
-    "angular-touch/angular-touch.js",
-    "angular-progress-arc/angular-progress-arc.js"
+  "extras": [
+    "_/src/**/*",
+    "!_/src/{sass,sass/**}",
+    "!_/src/{js,js/**}",
+    "!_/src/{images,images/**}"
   ],
   "images": [
     "_/src/images/**/*.{png,jpg,jpeg,gif,svg}",
     "_/src/images/*.{png,jpg,jpeg,gif,svg}"
   ],
-  "fonts": [
-    "_/src/fonts/*.*"
-  ],
-  "outputPath": "./.artifacts",
-  "bowerDir": "./bower_components"
+  "outputPath": {
+    "dist" : "_/dist",
+    "appSass" : "_/dist/css",
+    "appJs" : "_/dist/js",
+    "images" : "_/dist/images"
+  }
 }

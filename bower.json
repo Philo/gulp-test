@@ -1,0 +1,19 @@
+{
+  "name": "gulp-test",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Philo/gulp-test",
+  "authors": [
+    "philo <oystonpj@oystec.co.uk>"
+  ],
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

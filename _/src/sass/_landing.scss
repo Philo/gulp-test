@@ -36,8 +36,7 @@
 	}
 
 .landing__cta {
-	background: lighten($grey,10%);
-	border: 1px solid lighten($grey,5%);
+	border: 1px solid $grey;
 	border-radius: 4px; 
 	padding: 0.5em;
 	text-align: center;

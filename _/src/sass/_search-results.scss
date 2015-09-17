@@ -1,17 +1,3 @@
-.search-results__filter {
-	color: #3F4C51;
-	margin-left: 1em;
-	}
-
-.search-results__filter:before {
-	color: darken($grey,40%);
-	margin-right: 0.35em;
-	}
-
-.search-results__filter.disabled:before {
-	color: darken($grey,20%);
-	}
-
 .search-results__list {
     border-bottom: 1px solid $grey;
     }

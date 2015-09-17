@@ -19,12 +19,6 @@
       "src": "fontawesome"
     },
     {
-      "uid": "1400d5103edd2fa6d2d61688fee79a5a",
-      "css": "checked",
-      "code": 59406,
-      "src": "fontawesome"
-    },
-    {
       "uid": "d7271d490b71df4311e32cdacae8b331",
       "css": "home",
       "code": 59397,
@@ -40,12 +34,6 @@
       "uid": "9f7e588c66cfd6891f6f507cf6f6596b",
       "css": "phone",
       "code": 59400,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "c53068fe21c8410b0a098b4c52c3d37e",
-      "css": "download",
-      "code": 59405,
       "src": "fontawesome"
     },
     {
@@ -76,12 +64,6 @@
       "uid": "627abcdb627cb1789e009c08e2678ef9",
       "css": "twitter",
       "code": 59392,
-      "src": "fontawesome"
-    },
-    {
-      "uid": "2c2ca8a96b31781c9c8056d05c0a8980",
-      "css": "unchecked",
-      "code": 59408,
       "src": "fontawesome"
     },
     {
