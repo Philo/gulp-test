@@ -3,6 +3,7 @@
 :: ----------------------
 :: KUDU Deployment Script
 :: Version: 0.2.2
+:: This script is highly customised for the specific deployment task
 :: ----------------------
 
 :: Prerequisites
@@ -38,17 +39,21 @@ IF NOT DEFINED NEXT_MANIFEST_PATH (
   )
 )
 
-IF NOT DEFINED NEXT_ASSET_MANIFEST_PATH (
-  SET NEXT_ASSET_MANIFEST_PATH=%ARTIFACTS%\assetmanifest
+IF NOT DEFINED NPM_INSTALL_ARGS (
+  SET NPM_INSTALL_ARGS=--production
+)
 
-  IF NOT DEFINED PREVIOUS_ASSET_MANIFEST_PATH (
-    SET PREVIOUS_ASSET_MANIFEST_PATH=%ARTIFACTS%\assetmanifest
-  )
+IF NOT DEFINED GULP_BUILD_ARGS (
+  SET GULP_BUILD_ARGS=--production
+)
+
+IF NOT DEFINED SOLUTION_SOURCE (
+  SET SOLUTION_SOURCE=--production
 )
 
 IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
-  echo Installing Kudu Sync
+  echo [%TIME%] Installing Kudu Sync
   call npm install kudusync -g --silent
   IF !ERRORLEVEL! NEQ 0 goto error
 
@@ -109,56 +114,57 @@ goto :EOF
 :: ----------
 
 :Deployment
-echo Handling node.js deployment.
+echo [%TIME%] Handling NHS NSS Corporate Umbraco deployment
 
-:: 1. Select node version
+:: 0. Select node version
 call :SelectNodeVersion
 
-:: 2. Install npm packages
+:: 1. Install npm packages
 IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
-  echo +--== Installing NPM packages ==--+
+  echo [%TIME%] Installing NPM packages %NPM_INSTALL_ARGS%
   pushd "%DEPLOYMENT_SOURCE%"
-  call :ExecuteCmd !NPM_CMD! install --production
+  call :ExecuteCmd !NPM_CMD! install %NPM_INSTALL_ARGS%
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
 
-:: 3. Run gulp
+:: 2. Run gulp
 IF EXIST "%DEPLOYMENT_SOURCE%\gulpfile.js" (
-  echo +--== Running Gulp ==--+
+  echo [%TIME%] Running Gulp %GULP_BUILD_ARGS%
   pushd "%DEPLOYMENT_SOURCE%"
-  call :Executecmd gulp --production
+  call :Executecmd gulp %GULP_BUILD_ARGS%
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
 
-:: 1. Restore NuGet packages
+:: 3. Restore NuGet packages
 IF /I "Production\src\NssCorporateUmbraco.sln" NEQ "" (
+  echo [%TIME%] Restoring Nuget Packages
   call :ExecuteCmd nuget restore "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco.sln"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
-:: 2. Build to the temporary path
+:: 4. Build to the temporary path
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
+  echo [%TIME%] Building (%TIME%)
   call :ExecuteCmd "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="%DEPLOYMENT_TEMP%";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\Production\src\\" %SCM_BUILD_ARGS%
 ) ELSE (
   call :ExecuteCmd "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /p:AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\Production\src\\" %SCM_BUILD_ARGS%
 )
 
-:: 3. KuduSync
+:: 5. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-  echo +--== Running KuduSync for assets ==--+
+  echo [%TIME%] Running KuduSync
   call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\_\dist" -t "%DEPLOYMENT_TEMP%\_\dist" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
-:: 3. KuduSync
+:: 5. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-  echo +--== Running KuduSync for deployment ==--+
+  echo [%TIME%] Running KuduSync
   call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%DEPLOYMENT_TEMP%" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
-
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -178,7 +184,7 @@ exit /b %ERRORLEVEL%
 
 :error
 endlocal
-echo An error has occurred during web site deployment.
+echo [%TIME%] An error has occurred during web site deployment.
 call :exitSetErrorLevel
 call :exitFromFunction 2>nul
 
@@ -190,4 +196,4 @@ exit /b 1
 
 :end
 endlocal
-echo Finished successfully.
+echo [%TIME%] +--== Finished successfully ==--+
