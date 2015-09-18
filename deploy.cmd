@@ -39,18 +39,6 @@ IF NOT DEFINED NEXT_MANIFEST_PATH (
   )
 )
 
-IF NOT DEFINED NPM_INSTALL_ARGS (
-  SET NPM_INSTALL_ARGS=--production
-)
-
-IF NOT DEFINED GULP_BUILD_ARGS (
-  SET GULP_BUILD_ARGS=--production
-)
-
-IF NOT DEFINED SOLUTION_SOURCE (
-  SET SOLUTION_SOURCE=--production
-)
-
 IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
   echo [%TIME%] Installing Kudu Sync
@@ -74,6 +62,24 @@ IF DEFINED CLEAN_LOCAL_DEPLOYMENT_TEMP (
 IF NOT DEFINED MSBUILD_PATH (
   SET MSBUILD_PATH=%WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild.exe
 )
+
+:: Custom Options
+IF NOT DEFINED NPM_INSTALL_ARGS (
+  SET NPM_INSTALL_ARGS=--production
+)
+
+IF NOT DEFINED GULP_BUILD_ARGS (
+  SET GULP_BUILD_ARGS=--production
+)
+ 
+IF NOT DEFINED SOLUTION_SOURCE (
+  SET SOLUTION_SOURCE=%DEPLOYMENT_SOURCE%\Production\src\
+)
+
+IF NOT DEFINED SOLUTION_NAME (
+  SET SOLUTION_NAME=%SOLUTION_SOURCE%\NssCorporateUmbraco.sln
+)
+
 
 goto Deployment
 
@@ -138,24 +144,25 @@ IF EXIST "%DEPLOYMENT_SOURCE%\gulpfile.js" (
 )
 
 :: 3. Restore NuGet packages
-IF /I "Production\src\NssCorporateUmbraco.sln" NEQ "" (
+IF /I %SOLUTION_NAME% NEQ "" (
   echo [%TIME%] Restoring Nuget Packages
-  call :ExecuteCmd nuget restore "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco.sln"
+  call :ExecuteCmd nuget restore "%SOLUTION_NAME%"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
 :: 4. Build to the temporary path
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-  echo [%TIME%] Building (%TIME%)
-  call :ExecuteCmd "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="%DEPLOYMENT_TEMP%";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\Production\src\\" %SCM_BUILD_ARGS%
+  echo [%TIME%] Building in place
+  call :ExecuteCmd "%MSBUILD_PATH%" "%SOLUTION_SOURCE%\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="%DEPLOYMENT_TEMP%";AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%SOLUTION_SOURCE%" %SCM_BUILD_ARGS%
 ) ELSE (
-  call :ExecuteCmd "%MSBUILD_PATH%" "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /p:AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%DEPLOYMENT_SOURCE%\Production\src\\" %SCM_BUILD_ARGS%
+  echo [%TIME%] Building
+  call :ExecuteCmd "%MSBUILD_PATH%" "%SOLUTION_SOURCE%\NssCorporateUmbraco\NssCorporateUmbraco.csproj" /nologo /verbosity:m /t:Build /p:AutoParameterizationWebConfigConnectionStrings=false;Configuration=Release /p:SolutionDir="%SOLUTION_SOURCE%" %SCM_BUILD_ARGS%
 )
 
 :: 5. KuduSync
 IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
   echo [%TIME%] Running KuduSync
-  call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%DEPLOYMENT_SOURCE%\Production\src\NssCorporateUmbraco\_\dist" -t "%DEPLOYMENT_TEMP%\_\dist" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%"
+  call :ExecuteCmd "%KUDU_SYNC_CMD%" --perf -q -f "%SOLUTION_SOURCE%\NssCorporateUmbraco\_\dist" -t "%DEPLOYMENT_TEMP%\_\dist" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%"
   IF !ERRORLEVEL! NEQ 0 goto error
 )
 
@@ -196,4 +203,4 @@ exit /b 1
 
 :end
 endlocal
-echo [%TIME%] +--== Finished successfully ==--+
+echo [%TIME%] Finished successfully
