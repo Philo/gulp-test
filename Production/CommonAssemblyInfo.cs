@@ -6,8 +6,8 @@ using System.Security;
 [assembly: AssemblyCompany("Storm ID")]
 [assembly: AssemblyProduct("StormWebsite")]
 [assembly: AssemblyCopyright("Copyright 2009-2012 Storm ID Ltd. All rights reserved.")]
-[assembly: AssemblyVersion("0.1.25.15252")]
-[assembly: AssemblyFileVersion("0.1.25.15252")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
 
-[assembly: AssemblyInformationalVersion("0.1.25.0")]
+[assembly: AssemblyInformationalVersion("0.1.0+8.Branch.master.Sha.d47b7c46aa144ad0b97856c65974a41e881c8edf")]
 [assembly: ComVisibleAttribute(false)]
